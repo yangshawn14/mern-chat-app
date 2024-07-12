@@ -14,7 +14,13 @@ const messageSchema = new mongoose.Schema(
 		},
 		message: {
 			type: String,
-			required: true,
+			required: function () {
+				return !this.fileUrl; // message is required if fileUrl is not provided
+			}
+		},
+		fileUrl: {
+			type: String,
+			default: null,
 		},
 		// createdAt, updatedAt
 	},

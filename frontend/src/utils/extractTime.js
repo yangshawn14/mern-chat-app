@@ -1,8 +1,14 @@
 export function extractTime(dateString) {
 	const date = new Date(dateString);
-	const hours = padZero(date.getHours());
+	let hours = date.getHours();
 	const minutes = padZero(date.getMinutes());
-	return `${hours}:${minutes}`;
+	const ampm = hours >= 12 ? 'PM' : 'AM';
+
+	hours = hours % 12;
+	hours = hours ? hours : 12; // The hour '0' should be '12'
+	const paddedHours = padZero(hours);
+
+	return `${paddedHours}:${minutes} ${ampm}`;
 }
 
 // Helper function to pad single-digit numbers with a leading zero

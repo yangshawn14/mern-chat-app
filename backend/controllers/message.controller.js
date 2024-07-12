@@ -1,6 +1,7 @@
 import Conversation from "../models/conversation.model.js";
 import Message from "../models/message.model.js";
 import { getReceiverSocketId, io } from "../socket/socket.js";
+import path from "path";
 
 export const sendMessage = async (req, res) => {
 	try {
@@ -21,12 +22,18 @@ export const sendMessage = async (req, res) => {
 		const newMessage = new Message({
 			senderId,
 			receiverId,
-			message,
+			message: message || "",
+			fileUrl: req.file ? path.join('uploads', req.file.filename) : null
 		});
 
-		if (newMessage) {
-			conversation.messages.push(newMessage._id);
+		if (!newMessage.message && !newMessage.fileUrl) {
+			throw new Error('Message content or file must be provided.');
 		}
+
+		conversation.messages.push(newMessage._id);
+		// if (newMessage) {
+		// 	conversation.messages.push(newMessage._id);
+		// }
 
 		// await conversation.save();
 		// await newMessage.save();
