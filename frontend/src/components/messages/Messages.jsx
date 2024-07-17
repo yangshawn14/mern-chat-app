@@ -5,7 +5,7 @@ import Message from "./Message";
 import useListenMessages from "../../hooks/useListenMessages";
 
 const Messages = () => {
-	const { messages, loading } = useGetMessages();
+	const { messages, loading, filteredMessages } = useGetMessages();
 	useListenMessages();
 	const lastMessageRef = useRef();
 
@@ -18,15 +18,15 @@ const Messages = () => {
 	return (
 		<div className='px-4 flex-1 overflow-auto'>
 			{!loading &&
-				messages.length > 0 &&
-				messages.map((message) => (
+				filteredMessages.length > 0 &&
+				filteredMessages.map((message) => (
 					<div key={message._id} ref={lastMessageRef}>
 						<Message message={message} />
 					</div>
 				))}
 
 			{loading && [...Array(3)].map((_, idx) => <MessageSkeleton key={idx} />)}
-			{!loading && messages.length === 0 && (
+			{!loading && filteredMessages.length === 0 && (
 				<p className='text-center'>Send a message to start the conversation</p>
 			)}
 		</div>
