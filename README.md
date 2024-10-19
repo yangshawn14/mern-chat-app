@@ -1,7 +1,7 @@
 # MERN Stack Project: Real Time Chat App 
 https://mern-chat-app-14up.onrender.com
-username: johndoe
-password:123456
+# username: johndoe
+# password:123456
 Some Features:
 
 -   🌟 Tech stack: MERN + Socket.io + TailwindCSS + Daisy UI
